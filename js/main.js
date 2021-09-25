@@ -81,5 +81,20 @@ function addTodo() {
 
 
 function setCurrentList(identity) {
+  let listId = []
+  for (const key in lists) {
+    if (lists.hasOwnProperty(key)) { //Sets the name of the list and gives a id to each button
+      listId.push('list' + key)
+    }
+    
+  }
+  let selectedList = identity.id
+  let tobeRemoved = listId.indexOf(selectedList) //removes the chosed list from the listId
+  console.log(tobeRemoved)
+  listId.splice(tobeRemoved, 1)
+  console.log(listId)
+
+//create a loop to go through and reset the other lists
+
   identity.id += ' currentList'
 }
