@@ -17,6 +17,19 @@ const lists = {
         }
       ]
     },
+    2: {
+      name: "School list",
+      todos: [
+        {
+          text: 'homework',
+          completed: false
+        },
+        {
+          text: 'math',
+          completed: false
+        }
+      ]
+    },
    }
    const currentList = lists[0];
 
@@ -25,27 +38,48 @@ function render() {
     //left bar html
     let listsHtml  = '<ul class="list-group" id="listItems">';
     //go through and get all the names for the different lists
-    lists.forEach((list) => {
-        listsHtml += `<li class="list-group-item">${list.name}</li>`;
-      });
+    for (const key in lists) {
+      if (lists.hasOwnProperty(key)) { //Sets the name of the list and gives a id to each button
+        listsHtml += `<button type="button" class="list-group-item list-group-item-action" id="list${key}" onclick="setCurrentList(list${key})">${lists[key].name}</button>`;
+      }
+    }
     listsHtml += '</ul>';
     // print out the HTML just made
     document.getElementById('listItems').innerHTML = listsHtml;
 
-    //print the current list out
-    document.getElementById('current-list-name').innerText = currentList.name;
 
-    //get the items from the todo
-    let todosHtml = '<ul class="list-group" id="listItems">';
-    currentList.todos.forEach((list) => {
-        //{todo.text}
-    todosHtml += `<li class="list-group-item">
-    <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-    {todo.text}</li>`;
-    // print the todos
-    document.getElementById('current-list-todos').innerHTML = todosHtml;
- });
+    //print the current list out
+//     document.getElementById('listTitle').innerText = currentList.name;
+
+//     //get the items from the todo
+//     let todosHtml = '<ul class="list-group" id="listItems">';
+//     currentList.todos.forEach((list) => {
+//         //{todo.text}
+//     todosHtml += `<li class="list-group-item">
+//     <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+//     {todo.text}</li>`;
+//     // print the todos
+//     document.getElementById('current-list-todos').innerHTML = todosHtml;
+//  });
 
 }
-
 render()
+// the function to add todos
+
+function addTodo() {
+    //grab text from the input box
+    const text =
+    document.getElementById('toDoInput').value;
+    if(text) {
+      currentList.todos.push({
+        text: text,
+        completed: false
+      })
+      render();
+    }
+}
+
+
+function setCurrentList(identity) {
+  identity.id += ' currentList'
+}
