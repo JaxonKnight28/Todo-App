@@ -44,7 +44,6 @@ let lists = {
       ]
     },
    }
-   let currentList = lists[1];
 
 //renderFunction
 function render() {
@@ -62,6 +61,7 @@ function render() {
 
 }
 render()
+showListItems(1)
 setCurrentList(1)
 
 //creates a varable to keep track of the length of the number of lists
@@ -92,4 +92,24 @@ function setCurrentList(identity) {
   document.getElementById(theChosen).id = theChosen + ' currentList';
   //adds an active class to the list button to make it blue when selected
   document.getElementById(theChosen + ' currentList').classList.add('active')
+  //calls the showListItems function to show the items for the chosen list
+  showListItems(identity)
+}
+
+
+function showListItems(listNum) {
+  //similar to the render function but displays the todo items for each specific list
+  let listItemHtml = '<ul class="list-group" id="listItems">'
+  //opens up the chosen list and gets the todo list
+  let items = lists[listNum]['todos']
+  let itemNum = 0
+  let currentItem = ''
+  for (const key in items) {
+    //this loop goes through each item in the list and adds a button for it
+   currentItem =items[key]['text']
+   listItemHtml +=  `<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" value="" aria-label="...">${currentItem}</li>`
+  }
+  listItemHtml += '</ul>'
+  //displays to the item section
+  document.getElementById('todoItems').innerHTML = listItemHtml;
 }
