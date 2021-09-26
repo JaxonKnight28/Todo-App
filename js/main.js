@@ -66,18 +66,18 @@ function render() {
 
 
     //print the current list name in the heading
-    document.getElementById('listTitle').innerText = currentList[key].name; //FIX THIS NEXT
+     //document.getElementById('listTitle').innerText = currentList[key].name; //FIX THIS NEXT
 
-    //get the items from the todo
-    let todosHtml = '<ul class="list-group" id="listItems">';
-    currentList.todos.forEach((list) => {
-        //{todo.text}
-    todosHtml += `<li class="list-group-item">
-    <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-    {todo.text}</li>`;
-    // print the todos
-    document.getElementById('current-list-todos').innerHTML = todosHtml;
- });
+//     //get the items from the todo
+//     let todosHtml = '<ul class="list-group" id="listItems">';
+//     currentList.todos.forEach((list) => {
+//         //{todo.text}
+//     todosHtml += `<li class="list-group-item">
+//     <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+//     {todo.text}</li>`;
+//     // print the todos
+//     document.getElementById('current-list-todos').innerHTML = todosHtml;
+//  });
 
 }
 render()
@@ -106,6 +106,11 @@ function setCurrentList(identity) {
     
   }
   let selectedList = identity.id
+
+//This is what I am working on right now. Make it so I can select the list by its name
+  let selectedListNum = (identity.id)
+  document.getElementById('listTitle').innerText = lists[1].name; //FIX THIS NEXT
+
 
   let revisedList  = '<ul class="list-group" id="listItems">';
  for (let numbList in lists) {
