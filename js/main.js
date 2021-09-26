@@ -63,6 +63,7 @@ function render() {
 
     //makes the first list the default list every time
     document.getElementById('list1').id = 'list1' + ' currentList'
+    document.getElementById('listTitle').innerText = lists[1].name;
 
 
     //print the current list name in the heading
@@ -108,8 +109,8 @@ function setCurrentList(identity) {
   let selectedList = identity.id
 
 //This is what I am working on right now. Make it so I can select the list by its name
-  let selectedListNum = (identity.id)
-  document.getElementById('listTitle').innerText = lists[1].name; //FIX THIS NEXT
+  let selectedListNum = selectedList.replace('list', '')
+  document.getElementById('listTitle').innerText = lists[selectedListNum].name; //FIX THIS NEXT
 
 
   let revisedList  = '<ul class="list-group" id="listItems">';
