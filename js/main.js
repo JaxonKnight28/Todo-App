@@ -3,7 +3,7 @@
 //lists id is listItems
 
 
-const lists = {
+let lists = {
     1: {
       name: "Shopping list",
       todos: [
@@ -66,8 +66,6 @@ function render() {
     document.getElementById('listTitle').innerText = lists[1].name;
 
 
-    //print the current list name in the heading
-     //document.getElementById('listTitle').innerText = currentList[key].name; //FIX THIS NEXT
 
 //     //get the items from the todo
 //     let todosHtml = '<ul class="list-group" id="listItems">';
@@ -84,18 +82,21 @@ function render() {
 render()
 // the function to add todos
 
-function addTodo() {
+let = todLlistLength = Object.keys(lists).length;
+function addList() {
     //grab text from the input box
-    const text =
-    document.getElementById('toDoInput').value;
-    if(text) {
-      currentList.todos.push({
-        text: text,
-        completed: false
-      })
-      render();
+    let text = document.getElementById('toDoInput').value;
+    if (text) {
+      todLlistLength += 1
+      //let lengthOfObject = (Object.keys(lists).length + 1);
+      lists[todLlistLength] = '';
+      
+      render()
+      document.getElementById('list' + todLlistLength).innerText = text; //This spot is broken
     }
-}
+    text = ''
+    }
+
 
 
 function setCurrentList(identity) {
@@ -108,9 +109,8 @@ function setCurrentList(identity) {
   }
   let selectedList = identity.id
 
-//This is what I am working on right now. Make it so I can select the list by its name
   let selectedListNum = selectedList.replace('list', '')
-  document.getElementById('listTitle').innerText = lists[selectedListNum].name; //FIX THIS NEXT
+  document.getElementById('listTitle').innerText = lists[selectedListNum].name;
 
 
   let revisedList  = '<ul class="list-group" id="listItems">';
@@ -120,7 +120,6 @@ function setCurrentList(identity) {
     revisedList += `<button type="button" class="list-group-item list-group-item-action" id="list${numbList}" onclick="setCurrentList(list${numbList})">${lists[numbList].name}</button>`;
     
  }
- console.log(selectedList)
   revisedList += '</ul>';
   document.getElementById('listItems').innerHTML = revisedList;
   
