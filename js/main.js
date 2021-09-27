@@ -55,7 +55,9 @@ function render() {
         listsHtml += `<button type="button" class="list-group-item list-group-item-action" id="list${key}" onclick="setCurrentList(${key})">${lists[key].name}</button>`;
       }
     }
+    
     listsHtml += '</ul>';
+    listsHtml += '<button type="button" class="btn btn-danger btn-sm mt-4" onclick="removeList()">Delete Current List</button>';
     // print out the HTML just made
     document.getElementById('listItems').innerHTML = listsHtml;
 
@@ -136,8 +138,13 @@ function addItem() {
 }
 
 function removeItem(itemNum) {
-  console.log(itemNum)
   let itemToGo = lists[globalCurrentList]['todos']
-  //finsh the process to remove items
-  
+  lists[globalCurrentList]['todos'].splice(itemNum, 1)
+  showListItems(globalCurrentList)
+}
+
+function removeList() {
+  delete lists[globalCurrentList];
+  document.getElementById('listTitle').innerText = ''
+  render()
 }
