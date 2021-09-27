@@ -112,7 +112,7 @@ function showListItems(listNum) {
   for (const key in items) {
     //this loop goes through each item in the list and adds a button for it
    currentItem =items[key]['text'];
-   listItemHtml +=  `<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" value="" aria-label="...">${currentItem}</li>`;
+   listItemHtml +=  `<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" id="item${key}" onclick="removeItem(${key})">${currentItem}</li>`;
   }
   listItemHtml += '</ul>';
   //displays to the item section
@@ -133,4 +133,11 @@ function addItem() {
     //calls the showListItems to render the added item
     showListItems(globalCurrentList);
   }
+}
+
+function removeItem(itemNum) {
+  console.log(itemNum)
+  let itemToGo = lists[globalCurrentList]['todos']
+  //finsh the process to remove items
+  
 }
