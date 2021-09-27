@@ -60,8 +60,9 @@ function render() {
     document.getElementById('listItems').innerHTML = listsHtml;
 
 }
+//These render the page setting the first list as the defailt
 render();
-showListItems(1);
+let globalCurrentList = 0
 setCurrentList(1);
 
 //creates a varable to keep track of the length of the number of lists
@@ -69,6 +70,8 @@ let todoListLength = Object.keys(lists).length;
 function addList() {
     //grab text from the input box
     let newListName = document.getElementById('toDoInput').value;
+    //clears the text input so user can easily enter another one
+    document.getElementById('toDoInput').value = '';
     if (newListName) {
       //adds 1 to the length of the todoListLength to properly add another one
       todoListLength += 1;
@@ -94,6 +97,8 @@ function setCurrentList(identity) {
   document.getElementById(theChosen + ' currentList').classList.add('active');
   //calls the showListItems function to show the items for the chosen list
   showListItems(identity);
+  //sets the variable so the addItem can refer to the proper list
+  globalCurrentList = identity
 }
 
 
@@ -115,8 +120,17 @@ function showListItems(listNum) {
 }
 
 
-addItem()
 function addItem() {
-  let currentList = (document.getElementById('currentList'));
-  console.log(currentList);
+  //get the value from the Add Item button
+  let newItem = document.getElementById('itemInput').value;
+  //clear the value from the add Item to allow to easily add another
+  document.getElementById('itemInput').value = '';
+  if (newItem){
+    //gets the todos list from the current list chosen
+    let todoItems = lists[globalCurrentList]['todos'];
+    // pushes the new Item to the list along with completed false
+    todoItems.push({text: newItem, completed: false});
+    //calls the showListItems to render the added item
+    showListItems(globalCurrentList);
+  }
 }
