@@ -125,7 +125,7 @@ function showListItems(listNum) {
       listItemHtml += `<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" id="#{key}" onclick="markDone(${key})">${currentItem}</li>`;
     }
     else {
-      listItemHtml += `<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" id="#{key}" onclick="markDone(${key})" checked>${currentItem}</li>`;
+      listItemHtml += `<li class="list-group-item list-group-item-success"><input class="form-check-input me-1" type="checkbox" id="#{key}" onclick="markDone(${key})" checked>${currentItem}</li>`;
     }
   }
   listItemHtml += '<button type="button" class="btn btn-danger btn-sm mt-4" onclick="removeDone()">Delete Completed Items</button>';
@@ -172,12 +172,12 @@ function removeList() {
 
 function removeDone() {
   //creates a varaible that points to the current todo List
-  let itemsToGo = lists[globalCurrentList]['todos']
-  for (let i = 0; i < itemsToGo.length; i++) {
-    //loops through each item in the current to do list
-    if (itemsToGo[i]['completed'] == true) {
-      //if the current item in the loop is true then it removes that item
-      itemsToGo.splice(i, 1)
+  let currentListItems = lists[globalCurrentList]['todos']
+  //This loops through backwards in order or preserve the item's indexes when removed
+  for (let i = currentListItems.length - 1; i >= 0; i--) {
+    //checks to see if the item is completed then removes it
+    if (currentListItems[i]['completed'] == true) {
+      currentListItems.splice(i, 1)
     }
   }
   //then shows the shows the list
