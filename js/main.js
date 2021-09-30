@@ -83,7 +83,7 @@ function addList() {
     setCurrentList(todoListLength);
   }
   else {
-    showError("Error", 'Please enter the name of list to add.')
+    showError("Error", 'Please enter the name of list to add.');
   }
 }
 
@@ -152,7 +152,7 @@ function addItem() {
     showListItems(globalCurrentList);
   }
   else {
-    showError("Error", 'Please enter the name of an item to add.')
+    showError("Error", 'Please enter the name of an item to add.');
   }
 }
 
@@ -160,34 +160,34 @@ function markDone(itemNum) {
   //checks to see if the item selected is false
   if (lists[globalCurrentList]['todos'][itemNum]['completed'] == false) {
     //if it is false it changes it to true
-    lists[globalCurrentList]['todos'][itemNum]['completed'] = true
+    lists[globalCurrentList]['todos'][itemNum]['completed'] = true;
   }
   else {
     //if it is true it changes it back to false so the user can select and deselect items
-    lists[globalCurrentList]['todos'][itemNum]['completed'] = false
+    lists[globalCurrentList]['todos'][itemNum]['completed'] = false;
   }
   //shows the list and keeps the checkmarks that the user has completed
-  showListItems(globalCurrentList)
+  showListItems(globalCurrentList);
 }
 
 function removeList() {
   delete lists[globalCurrentList];
-  document.getElementById('listTitle').innerText = ''
-  render()
+  document.getElementById('listTitle').innerText = '';
+  render();
 }
 
 function removeDone() {
   //creates a varaible that points to the current todo List
-  let currentListItems = lists[globalCurrentList]['todos']
+  let currentListItems = lists[globalCurrentList]['todos'];
   //This loops through backwards in order or preserve the item's indexes when removed
   for (let i = currentListItems.length - 1; i >= 0; i--) {
     //checks to see if the item is completed then removes it
     if (currentListItems[i]['completed'] == true) {
-      currentListItems.splice(i, 1)
+      currentListItems.splice(i, 1);
     }
   }
   //then shows the shows the list
-  showListItems(globalCurrentList)
+  showListItems(globalCurrentList);
 }
 
 function showError(title, content) {
@@ -206,9 +206,9 @@ function showError(title, content) {
       </div>
     </div>
   </div>
-</div>`
+</div>`;
 
-  document.getElementById('modalSpot').innerHTML = theModal
+  document.getElementById('modalSpot').innerHTML = theModal;
   $('#errorModalMessage').modal('toggle');
   $('#errorModalMessage').modal('show');
 }
