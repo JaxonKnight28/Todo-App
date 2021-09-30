@@ -82,6 +82,9 @@ function addList() {
     //sets the newly created list as the current list
     setCurrentList(todoListLength);
   }
+  else {
+    showError("Error", 'Please enter the name of list to add.')
+  }
 }
 
 
@@ -148,6 +151,9 @@ function addItem() {
     //calls the showListItems to render the added item
     showListItems(globalCurrentList);
   }
+  else {
+    showError("Error", 'Please enter the name of an item to add.')
+  }
 }
 
 function markDone(itemNum) {
@@ -182,4 +188,31 @@ function removeDone() {
   }
   //then shows the shows the list
   showListItems(globalCurrentList)
+}
+
+function showError(title, content) {
+  let theModal = `<div class="modal fade" id="errorModalMessage" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">${title}</h5>
+        </button>
+      </div>
+      <div class="modal-body">
+        ${content}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick='closeModal()'>Close</button>
+      </div>
+    </div>
+  </div>
+</div>`
+
+  document.getElementById('modalSpot').innerHTML = theModal
+  $('#errorModalMessage').modal('toggle');
+  $('#errorModalMessage').modal('show');
+}
+
+function closeModal() {
+  $('#errorModalMessage').modal('hide');
 }
