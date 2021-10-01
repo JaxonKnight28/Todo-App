@@ -1,7 +1,7 @@
 //button id is toDoInput
 //list title id is listTitle
 //lists id is listItems
-clearStorage()
+
 //default list for reseting cleared data
 const defaultLists = {
   1: {
@@ -52,10 +52,11 @@ let lists = defaultLists;
 lists = (JSON.parse(localStorage.getItem('savedList')));
 
 
-//These render the page setting the first list as the defailt
+//These render the page setting the first list as the default
 render();
 let globalCurrentList = 0;
 setCurrentList(1);
+clearStorage()
 
 //renderFunction
 function render() {
