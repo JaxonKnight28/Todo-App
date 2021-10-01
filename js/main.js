@@ -2,8 +2,8 @@
 //list title id is listTitle
 //lists id is listItems
 
-
-let lists = {
+//default list for reseting cleared data
+const defaultLists = {
   1: {
     name: "Shopping list",
     todos: [
@@ -45,6 +45,12 @@ let lists = {
   },
 }
 
+//sets the default list as the list to be rendered for the first time
+let lists = defaultLists;
+
+//takes the list from storage before anything else happens
+lists = (JSON.parse(localStorage.getItem('savedList')));
+
 //renderFunction
 function render() {
   //left bar html
@@ -57,14 +63,15 @@ function render() {
   }
 
   listsHtml += '</ul>';
-  listsHtml += '<button type="button" class="btn btn-danger btn-sm mt-4" onclick="removeList()">Delete Current List</button>';
+  listsHtml += '<button type="button" class="btn btn-secondary btn-sm mt-4" onclick="removeList()">Delete Current List</button> </br>';
+  listsHtml += '<button type="button" class="btn btn-danger btn-sm mt-4" onclick="clearWarning()">Reset Storage</button>';
   // print out the HTML just made
   document.getElementById('listItems').innerHTML = listsHtml;
-
+  save();
 }
 //These render the page setting the first list as the defailt
 render();
-let globalCurrentList = 0
+let globalCurrentList = 0;
 setCurrentList(1);
 
 //creates a varable to keep track of the length of the number of lists
@@ -82,9 +89,12 @@ function addList() {
     //sets the newly created list as the current list
     setCurrentList(todoListLength);
   }
+  //shows an error if no name was entered
   else {
     showError("Error", 'Please enter the name of list to add.');
   }
+  //then saves
+  save();
 }
 
 
@@ -131,10 +141,11 @@ function showListItems(listNum) {
       listItemHtml += `<li class="list-group-item list-group-item-success"><input class="form-check-input me-1" type="checkbox" id="#{key}" onclick="markDone(${key})" checked>${currentItem}</li>`;
     }
   }
-  listItemHtml += '<button type="button" class="btn btn-danger btn-sm mt-4" onclick="removeDone()">Delete Completed Items</button>';
+  listItemHtml += '<button type="button" class="btn btn-secondary btn-sm mt-4" onclick="removeDone()">Delete Completed Items</button>';
   listItemHtml += '</ul>';
   //displays to the item section
   document.getElementById('todoItems').innerHTML = listItemHtml;
+  save();
 }
 
 
@@ -154,6 +165,7 @@ function addItem() {
   else {
     showError("Error", 'Please enter the name of an item to add.');
   }
+  save();
 }
 
 function markDone(itemNum) {
@@ -171,7 +183,9 @@ function markDone(itemNum) {
 }
 
 function removeList() {
+  //deletes the current list
   delete lists[globalCurrentList];
+  //removes the title to be blank since no list will be selected
   document.getElementById('listTitle').innerText = '';
   render();
 }
@@ -186,11 +200,13 @@ function removeDone() {
       currentListItems.splice(i, 1);
     }
   }
-  //then shows the shows the list
+  //then shows the shows the list and savces
   showListItems(globalCurrentList);
+  save();
 }
-
+//modal functions------------------------------
 function showError(title, content) {
+  //creates a variable with the HTML modal and takes the title and content from the specific function
   let theModal = `<div class="modal fade" id="errorModalMessage" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -207,12 +223,56 @@ function showError(title, content) {
     </div>
   </div>
 </div>`;
-
+  //gets the spot for the modal and shows it
   document.getElementById('modalSpot').innerHTML = theModal;
   $('#errorModalMessage').modal('toggle');
   $('#errorModalMessage').modal('show');
 }
 
+//closes the modal from whatever section it is called from
 function closeModal() {
   $('#errorModalMessage').modal('hide');
+}
+
+//save functions--------------------------------------------
+function save() {
+  localStorage.setItem('savedList', JSON.stringify(lists));
+  lists = (JSON.parse(localStorage.getItem('savedList')));
+}
+
+function clearWarning() {
+  let theModal = `<div class="modal fade" id="errorModalMessage" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">CLEAR DATA</h5>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to clear your saved lists?
+        All lists will be reset.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick='closeModal()'>Close</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick='clearStorage()'>DELETE</button>
+      </div>
+    </div>
+  </div>
+</div>`;
+  document.getElementById('modalSpot').innerHTML = theModal;
+  $('#errorModalMessage').modal('toggle');
+  $('#errorModalMessage').modal('show');
+}
+
+function clearStorage() {
+  //resets the storage
+  localStorage.clear();
+  //closes modal
+  closeModal();
+  //sets lits to the default list
+  lists = defaultLists;
+  //renders and shoes the lists and items like normal
+  render();
+  globalCurrentList = 0;
+  setCurrentList(1);
 }
