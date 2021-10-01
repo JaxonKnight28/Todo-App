@@ -56,7 +56,7 @@ lists = (JSON.parse(localStorage.getItem('savedList')));
 render();
 let globalCurrentList = 0;
 setCurrentList(1);
-clearStorage()
+
 
 //renderFunction
 function render() {
