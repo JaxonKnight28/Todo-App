@@ -1,7 +1,7 @@
 //button id is toDoInput
 //list title id is listTitle
 //lists id is listItems
-
+save()
 //default list for reseting cleared data
 const defaultLists = {
   1: {
@@ -51,6 +51,12 @@ let lists = defaultLists;
 //takes the list from storage before anything else happens
 lists = (JSON.parse(localStorage.getItem('savedList')));
 
+
+//These render the page setting the first list as the defailt
+render();
+let globalCurrentList = 0;
+setCurrentList(1);
+
 //renderFunction
 function render() {
   //left bar html
@@ -69,10 +75,6 @@ function render() {
   document.getElementById('listItems').innerHTML = listsHtml;
   save();
 }
-//These render the page setting the first list as the defailt
-render();
-let globalCurrentList = 0;
-setCurrentList(1);
 
 //creates a varable to keep track of the length of the number of lists
 let todoListLength = Object.keys(lists).length;
