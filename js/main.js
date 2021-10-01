@@ -1,7 +1,7 @@
 //button id is toDoInput
 //list title id is listTitle
 //lists id is listItems
-save()
+clearStorage()
 //default list for reseting cleared data
 const defaultLists = {
   1: {
