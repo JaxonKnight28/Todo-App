@@ -45,12 +45,16 @@ const defaultLists = {
   },
 }
 
-//sets the default list as the list to be rendered for the first time
+//checks to see if there is anything saved
 let lists = defaultLists;
-
-//takes the list from storage before anything else happens
-lists = (JSON.parse(localStorage.getItem('savedList')));
-
+if (JSON.parse(localStorage.getItem('savedList')) == null) {
+  //if nothing is saved then assignes the list the defalult values
+  lists = defaultLists;
+}
+else {
+  //if there is saved data then it uses that data
+  lists = (JSON.parse(localStorage.getItem('savedList')));
+}
 
 //These render the page setting the first list as the default
 render();
