@@ -2,7 +2,7 @@
 //list title id is listTitle
 //lists id is listItems
 
-//default list for reseting cleared data
+//default list for resetting cleared data
 const defaultLists = {
   1: {
     name: "Shopping list",
@@ -48,7 +48,7 @@ const defaultLists = {
 //checks to see if there is anything saved
 let lists = defaultLists;
 if (JSON.parse(localStorage.getItem('savedList')) == null) {
-  //if nothing is saved then assignes the list the defalult values
+  //if nothing is saved then assigned the list the default values
   lists = defaultLists;
 }
 else {
@@ -81,7 +81,7 @@ function render() {
   save();
 }
 
-//creates a varable to keep track of the length of the number of lists
+//creates a variable to keep track of the length of the number of lists
 let todoListLength = Object.keys(lists).length;
 function addList() {
   //grab text from the input box
@@ -91,7 +91,7 @@ function addList() {
   if (newListName) {
     //adds 1 to the length of the todoListLength to properly add another one
     todoListLength += 1;
-    //creates a new object in the list of objects and initialzes the name given and an empty todo list
+    //creates a new object in the list of objects and initializes the name given and an empty todo list
     lists[todoListLength] = { 'name': newListName, 'todos': [] };
     //sets the newly created list as the current list
     setCurrentList(todoListLength);
@@ -113,7 +113,7 @@ function setCurrentList(identity) {
   let theChosen = 'list' + identity;
   //changes the title of the current list
   document.getElementById('listTitle').innerText = lists[identity].name;
-  //changes motifies the chosen ID so that it is the current list
+  //changes modifies the chosen ID so that it is the current list
   document.getElementById(theChosen).id = theChosen + ' currentList';
   //adds an active class to the list button to make it blue when selected
   document.getElementById(theChosen + ' currentList').classList.add('active');
@@ -138,9 +138,9 @@ function showListItems(listNum) {
     currentItem = items[key]['text'];
     //isDone grabs if the item is completed or not
     isDone = items[key]['completed'];
-    //statemnt checks to see if isDone is true or false, and 
-    //depending on the result it adds the checkmark so that a users
-    //checkmark is not lost when they move to other lists
+    //statement checks to see if isDone is true or false, and 
+    //depending on the result it adds the check mark so that a users
+    //check mark is not lost when they move to other lists
     if (isDone == false) {
       listItemHtml += `<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" id="#{key}" onclick="markDone(${key})">${currentItem}</li>`;
     }
@@ -185,7 +185,7 @@ function markDone(itemNum) {
     //if it is true it changes it back to false so the user can select and deselect items
     lists[globalCurrentList]['todos'][itemNum]['completed'] = false;
   }
-  //shows the list and keeps the checkmarks that the user has completed
+  //shows the list and keeps the check marks that the user has completed
   showListItems(globalCurrentList);
 }
 
@@ -198,7 +198,7 @@ function removeList() {
 }
 
 function removeDone() {
-  //creates a varaible that points to the current todo List
+  //creates a variable that points to the current todo List
   let currentListItems = lists[globalCurrentList]['todos'];
   //This loops through backwards in order or preserve the item's indexes when removed
   for (let i = currentListItems.length - 1; i >= 0; i--) {
@@ -207,7 +207,7 @@ function removeDone() {
       currentListItems.splice(i, 1);
     }
   }
-  //then shows the shows the list and savces
+  //then shows the shows the list and saves
   showListItems(globalCurrentList);
   save();
 }
