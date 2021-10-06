@@ -273,7 +273,7 @@ function clearWarning() {
 
 function clearStorage() {
   //resets the storage
-  localStorage.clear();
+  localStorage.removeItem('savedList');
   //closes modal
   closeModal();
   //sets lits to the default list
