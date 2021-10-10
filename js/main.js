@@ -142,7 +142,7 @@ function showListItems(listNum) {
     //depending on the result it adds the check mark so that a users
     //check mark is not lost when they move to other lists
     if (isDone == false) {
-      listItemHtml += `<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" id="#{key}" onclick="markDone(${key})">${currentItem}</li>`;
+      listItemHtml += `<li class="list-group-item"><input class="form-check-input me-1" type="checkbox" id="#${key}" onclick="markDone(${key})">${currentItem}</li>`;
     }
     else {
       listItemHtml += `<li class="list-group-item list-group-item-success"><input class="form-check-input me-1" type="checkbox" id="#{key}" onclick="markDone(${key})" checked>${currentItem}</li>`;
@@ -194,6 +194,7 @@ function removeList() {
   delete lists[globalCurrentList];
   //removes the title to be blank since no list will be selected
   document.getElementById('listTitle').innerText = '';
+  document.getElementById('todoItems').innerHTML = '';
   render();
 }
 
